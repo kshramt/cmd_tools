@@ -1,0 +1,22 @@
+#!/opt/local/bin/ruby1.9
+# -*- coding: utf-8 -*-
+if ARGV.empty?
+  puts <<-EOS
+#
+>tsh fileOrDir1 fileOrDir2 ...
+#
+  EOS
+
+  exit
+end
+
+require 'fileutils'
+MY_TRASH_DIR = File.join(ENV['HOME'], '.myTrash')
+CURRENT_TIME = Time.now.strftime("%y%m%d%H%M%S.")
+PREFIX = File.join(MY_TRASH_DIR, CURRENT_TIME)
+
+FileUtils.mkdir_p(MY_TRASH_DIR)
+puts (ARGV - %w(. ..))\
+  .select{|path| File.exist?(path)}\
+  .each{|path| FileUtils.mv(path, PREFIX + File.basename(path))}\
+  .join("\t")

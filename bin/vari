@@ -1,0 +1,18 @@
+#!/usr/bin/ruby
+# -*- coding: utf-8 -*-
+# ファイル名を引数に与えると，そのファイル内の全ての変数を列挙する
+# 言語の種類は拡張子によって自動的に判断する．
+# できれば，型宣言を参考にして，その型も表示したい．これは，難しいだろうから，やめると思うけど，
+if ARGV.size == 0
+  puts "#"
+  puts "ファイル名を引数に与えると，そのファイル内の全ての変数名を列挙します．"
+  puts "> vari file1, file2, file3..."
+  puts"#"
+else
+  require File.dirname(__FILE__) + "/class_vari"
+  fileList = ARGV
+  for fileName in fileList
+    vari = Vari.new(fileName)
+    vari.printTTY
+  end
+end

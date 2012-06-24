@@ -1,0 +1,53 @@
+#!/opt/local/bin/ruby1.9
+# -*- coding: utf-8 -*-
+# 基本的には，カレントディレクトリ内のファイルを，カレントディレクトリ内にあるバックアップフォルダにコピーするコマンド
+# 他のディレクトリのファイルをバックアップする用途には，使わない方が良いと思う（想定されていない使い方という意味で）
+# もし，上記のような必要に迫られた場合は，別の仕組みを検討する．
+
+if ARGV.empty?
+  puts <<-EOS
+#
+$ bak file1 file2 ...
+#
+  EOS
+
+  exit
+end
+
+require 'fileutils'
+require 'find'
+
+BAK_DIR_HEAD = "bak_since_"
+BAK_DIR_REG = /(\A|\/)#{BAK_DIR_HEAD}\d{12}\z/
+BAK_PREFIX = 'bak.'
+CURRENT_TIME = Time.now.strftime("%y%m%d%H%M%S")
+BAK_DIR\
+=  Dir.foreach('.')\
+    .select{|path| path =~ BAK_DIR_REG}\
+    .select{|path| File.directory?(path)}\
+    .first\
+|| BAK_DIR_HEAD + CURRENT_TIME
+
+FileUtils.mkdir_p(BAK_DIR)
+puts (ARGV.map{|path| path.chomp('/')} - ['.', '..', BAK_DIR])\
+  .select{|path| File.exist?(path)}\
+  .each{ |path|
+    dest = File.join(BAK_DIR, "#{BAK_PREFIX}#{path}.#{CURRENT_TIME}#{File.extname(path)}")
+    FileUtils.cp_r(path, dest)}\
+  .join("\t")
+
+# bak.hogehoge.110616181104にマッチしなかったら，もう検査を受けてるはずだから，無視する．
+# それ以外（今バックアップした所の中）で，バックアップディレクトリにマッチするなば，消すかどうか聞く．
+puts Find.find(BAK_DIR)\
+  .select{|path| File.directory?(path)}\
+  .select{|path| path =~ /\A#{BAK_DIR}\/.*#{BAK_DIR_HEAD}\d{12}\z/}\
+  .select{|path|
+    $stdout.puts "Delete #{path}? [y/N]"
+    if $stdin.gets.strip =~ /\A[yY]/
+      true
+    else
+      $stdout.puts "Neglect: #{path}"
+      false
+    end}\
+  .each{|path| FileUtils.rm_rf(path)}\
+  .join("\t")
