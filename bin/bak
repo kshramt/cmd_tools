@@ -1,6 +1,7 @@
-#!/opt/local/bin/ruby1.9
+#!/usr/bin/env ruby
 # -*- coding: utf-8 -*-
-# Create backups within the current directory.
+# bak is an abbreviation of backup.
+# Backup files and directories in the current directory into ./bak_since_ directory.
 
 if ARGV.empty?
   puts <<-EOS

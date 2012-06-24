@@ -1,5 +1,9 @@
-#!/opt/local/bin/ruby1.9
+#!/usr/bin/env ruby
 # -*- coding: utf-8 -*-
+# tsh is an abbreviation of trash.
+# Move files and directories to ~/.myTrash directory.
+# Should be safer than direct rm.
+
 if ARGV.empty?
   puts <<-EOS
 #
