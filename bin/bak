@@ -1,0 +1,49 @@
+#!/usr/bin/env ruby
+# -*- coding: utf-8 -*-
+# bak is an abbreviation of backup.
+# Backup files and directories in the current directory into ./bak_since_ directory.
+
+if ARGV.empty?
+  puts <<-EOS
+#
+$ bak file1 file2 ...
+#
+  EOS
+
+  exit
+end
+
+require 'fileutils'
+require 'find'
+
+BAK_DIR_HEAD = "bak_since_"
+BAK_DIR_REG = /(\A|\/)#{BAK_DIR_HEAD}\d{12}\z/
+BAK_PREFIX = 'bak.'
+CURRENT_TIME = Time.now.strftime("%y%m%d%H%M%S")
+BAK_DIR\
+=  Dir.foreach('.')\
+    .select{|path| path =~ BAK_DIR_REG}\
+    .select{|path| File.directory?(path)}\
+    .first\
+|| BAK_DIR_HEAD + CURRENT_TIME
+BAK_DIR_IN_BAK_DIR_REG = /\A#{BAK_DIR}\/.*#{BAK_DIR_HEAD}\d{12}\z/
+
+FileUtils.mkdir_p(BAK_DIR)
+(ARGV.map{|path| path.chomp('/')} - ['.', '..', BAK_DIR])\
+  .select{|path| File.exist?(path)}\
+  .each{|path|
+  dest = File.join(BAK_DIR, "#{BAK_PREFIX}#{path}.#{CURRENT_TIME}#{File.extname(path)}")
+  $stdout.puts "Back up #{path}"
+  FileUtils.cp_r(path, dest)
+
+  Find.find(dest){|path_in_dest|
+    if path_in_dest =~ BAK_DIR_IN_BAK_DIR_REG && File.directory?(path_in_dest)
+      $stdout.puts "Delete #{path_in_dest}? [y/N]"
+      if $stdin.gets.strip =~ /\A[yY]/
+        $stdout.puts "Deleting: #{path_in_dest}"
+        FileUtils.rm_rf(path_in_dest)
+        Find.prune
+      end
+    end
+  }
+}
