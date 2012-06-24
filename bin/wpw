@@ -1,2 +1,0 @@
-#!/bin/bash
-echo alias cdpw=\"cd $PWD\" > ~/.tmp/wpw.tmp

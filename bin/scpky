@@ -1,6 +1,0 @@
-#!/bin/bash
-if [ $# -eq 0 ] ; then
-    echo "$> scpky '~/test.tar' ./"
-else
-    scp -r kasahara@yellow:$1 $2
-fi
