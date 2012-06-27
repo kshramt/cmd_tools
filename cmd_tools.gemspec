@@ -9,10 +9,10 @@ Gem::Specification.new do |s|
   s.summary = "Command line tools."
   s.version = CmdTools::VERSION
 
-  s.add_development_dependency 'ruby_patch', '~> 0'
+  s.add_development_dependency 'ruby_patch', '~> 0.0'
   s.author = 'kshramt'
   s.description = "Command line tools. tsh: mv to ~/.myTrash. bak: bakup."
   s.executables << 'bak'
   s.executables << 'tsh'
-  s.required_ruby_version = '>= 1.9.0'
+  s.required_ruby_version = '~> 1.9.0'
 end
