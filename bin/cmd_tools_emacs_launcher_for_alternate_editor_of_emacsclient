@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+# -*- coding: utf-8 -*-
+# cmd_tools_emacs_opener_for_alternate_editor_of_emacsclient can be used as:
+#   alias e='emacsclient -a cmd_tools_emacs_opener_for_alternate_editor_of_emacsclient -t'
+#   alias em='emacsclient -a cmd_tools_emacs_opener_for_alternate_editor_of_emacsclient -n'
+
+spawn("emacs #{ARGV.join(' ')}")

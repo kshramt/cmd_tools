@@ -14,5 +14,6 @@ Gem::Specification.new do |s|
   s.description = "Command line tools. tsh: mv to ~/.myTrash. bak: bakup."
   s.executables << 'bak'
   s.executables << 'tsh'
+  s.executables << 'cmd_tools_emacs_launcher_for_alternate_editor_of_emacsclient'
   s.required_ruby_version = '~> 1.9'
 end
