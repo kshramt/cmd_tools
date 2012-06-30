@@ -1,4 +1,4 @@
-require 'ruby_patch'
+require 'ruby_patch/object'
 
 gem_name = File.basename(__DIR__)
 require "./lib/#{gem_name}/version"
