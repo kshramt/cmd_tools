@@ -10,5 +10,5 @@ Back up files and directories of current directory into ./bak_since_SOME_NUMBERE
 == +cmd_tools_emacs_launcher_for_aliternate_editer_of_emacsclient+
 Launch +emacs+ by using +spawn+. This should be usefull when using +emacsclient+.
 === Usage
-  alias e='emacsclient -a cmd_tools_emacs_launcher_for_aliternate_editer_of_emacsclient -t'
-  alias em='emacsclient -a cmd_tools_emacs_launcher_for_aliternate_editer_of_emacsclient -n'
+  alias e='emacsclient -a cmd_tools_emacs_launcher_for_alternate_editer_of_emacsclient -t'
+  alias em='emacsclient -a cmd_tools_emacs_launcher_for_alternate_editer_of_emacsclient -n'
