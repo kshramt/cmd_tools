@@ -1,26 +1,10 @@
 #!/usr/bin/env ruby
-# -*- coding: utf-8 -*-
-# tsh is an abbreviation of trash.
-# Move files and directories to ~/.myTrash directory.
-# Should be safer than direct rm.
 
 if ARGV.empty?
-  puts <<-EOS
-#
->tsh fileOrDir1 fileOrDir2 ...
-#
-  EOS
+  puts "tsh fileOrDir1 fileOrDir2 ..."
 
   exit
 end
 
-require 'fileutils'
-MY_TRASH_DIR = File.join(ENV['HOME'], '.myTrash')
-CURRENT_TIME = Time.now.strftime("%y%m%d%H%M%S.")
-PREFIX = File.join(MY_TRASH_DIR, CURRENT_TIME)
-
-FileUtils.mkdir_p(MY_TRASH_DIR)
-puts (ARGV - %w(. ..))\
-  .select{|path| File.exist?(path)}\
-  .each{|path| FileUtils.mv(path, PREFIX + File.basename(path))}\
-  .join("\t")
+require 'cmd_tools'
+puts ::CmdTools::Bin::Tsh.run(ARGV).join("\t")
