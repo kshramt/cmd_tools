@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
 Command line tools:
   tsh: mv files to ~/.myTrash.
   bak: backup files.
-  emacs_daemon: launch `emacs --daemon'.
+  emacs_launcher_(g|c)ui: launch emacsclient and daemon (if necessary).
   EOS
   s.executables << 'bak'
   s.executables << 'tsh'
