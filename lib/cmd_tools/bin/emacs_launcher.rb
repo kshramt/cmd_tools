@@ -34,7 +34,7 @@ module CmdTools
       end
 
       def self.number_of_frames
-        `emacsclient -e "(length (visible-frame-list))" >& /dev/null`.to_i
+        `emacsclient -e "(length (visible-frame-list))" &> /dev/null`.to_i
       end
     end
   end
