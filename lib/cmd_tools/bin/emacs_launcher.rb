@@ -30,11 +30,11 @@ module CmdTools
       end
 
       def self.daemon_running?
-        system "emacsclient -e '()' >& /dev/null"
+        system "emacsclient -e '()' > /dev/null 2>&1"
       end
 
       def self.number_of_frames
-        `emacsclient -e "(length (visible-frame-list))" &> /dev/null`.to_i
+        `emacsclient -e "(length (visible-frame-list))" > /dev/null 2>&1`.to_i
       end
     end
   end
