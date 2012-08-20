@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+
+require "cmd_tools"
+::CmdTools::Bin::EmacsLauncher.run(:cui, ARGV)

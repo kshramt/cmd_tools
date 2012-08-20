@@ -1,14 +1,22 @@
-= Executables
-== +tsh+
+= CmdTools
+== What is this?
+Simple small command line utilities.
+== Executables
+=== +tsh+
 *rm* alternative. Move files and directories into ~/.myTrash with +TIME_NOW+. prefix.
-=== Usage
-  > tsh file1 file2 *~ dir1 dir2 1206??_photo
-== +bak+
-Back up files and directories of current directory into ./bak_since_SOME_NUMBERES directory with bak.+TIME_NOW+. prefix.
-=== Usage
-  > bak file1 file2 *~ dir1 dir2 1206??_photo
-== +cmd_tools_emacs_launcher_for_alternate_editor_of_emacsclient+
-Launch +emacs+ by using +spawn+. This should be usefull when using +emacsclient+.
-=== Usage
-  alias e='emacsclient -a cmd_tools_emacs_launcher_for_alternate_editor_of_emacsclient -t'
-  alias em='emacsclient -a cmd_tools_emacs_launcher_for_alternate_editor_of_emacsclient -n'
+==== Usage
+  tsh file1 file2 *~ dir1 dir2 1206??_photo
+=== +bak+
+Back up files and directories within current directory into ./bak_since_SOME_NUMBERES directory with bak.+TIME_NOW+. prefix.
+==== Usage
+  bak file1 file2 *~ dir1 dir2 1206??_photo
+=== +cmd_tools_emacs_launcher_for_alternate_editor_of_emacsclient+
+Deleted: please use +emacs_launcher_(g|c)ui+.
+=== +emacs_launcher_(g|c)ui+
+Launch emacs in (G|C)UI mode.
+1. If emacs daemon is not running, start a new daemon.
+2. If GUI mode and no frame exist, create a new frame.
+3. Open +files+ by emacsclient in (G|C)UI mode.
+==== Usage
+  alias em='emacs_launcher_gui'
+  alias e='emacs_launcher_cui'
