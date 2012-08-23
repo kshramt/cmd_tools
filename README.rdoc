@@ -20,3 +20,7 @@ Launch emacs in (G|C)UI mode.
 ==== Usage
   alias em='emacs_launcher_gui'
   alias e='emacs_launcher_cui'
+=== +emacs_launcher_stop+
+Stop emacs daemon launched by +emacs_launcher_(g|c)ui+.
+==== Usage
+  emacs_launcher_stop

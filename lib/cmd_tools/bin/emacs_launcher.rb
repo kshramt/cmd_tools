@@ -29,6 +29,11 @@ module CmdTools
         end
       end
 
+      # Stop emacs daemon.
+      def self.stop
+        exec "emacsclient -e '(kill-emacs)'"
+      end
+
       def self.daemon_running?
         system "emacsclient -e '()' > /dev/null 2>&1"
       end

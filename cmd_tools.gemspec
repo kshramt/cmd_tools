@@ -21,6 +21,7 @@ Command line tools:
   s.executables << 'tsh'
   s.executables << 'emacs_launcher_gui'
   s.executables << 'emacs_launcher_cui'
+  s.executables << 'emacs_launcher_stop'
   s.post_install_message = <<-EOS
 
 # CmdTools.
