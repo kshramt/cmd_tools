@@ -18,12 +18,12 @@ module CmdTools
         case mode
         when :gui
           if self.number_of_frames <= 1 # emacs daemon has one (invisible) frame.
-            system "emacsclient -c -n #{files}"
+            exec "emacsclient -c -n #{files}"
           else
-            system "emacsclient -n #{files}"
+            exec "emacsclient -n #{files}"
           end
         when :cui
-          system "emacsclient -t #{files}"
+          exec "emacsclient -t #{files}"
         else
           raise ArgumentError, "Unknown mode: #{mode}"
         end
