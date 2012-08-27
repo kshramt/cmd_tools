@@ -13,11 +13,14 @@ module CmdTools
 
     # (Re)load config file.
     def self.load
-      @config = if File.readable?(CONFIG_FILE)
+      @config = if File.size?(CONFIG_FILE) and File.readable?(CONFIG_FILE)
                   CONFIG_DEFAULT.merge(YAML.load_file(CONFIG_FILE))
                 else
                   FileUtils.mkdir_p(CONFIG_DIR)
-                  open(CONFIG_FILE, 'w').write(CONFIG_DEFAULT.to_yaml)
+                  open(CONFIG_FILE, 'w'){|io|
+                    io.write(CONFIG_DEFAULT.to_yaml)
+                    io.flush
+                  }
                   CONFIG_DEFAULT
                 end
 
