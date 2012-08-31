@@ -1,6 +1,4 @@
-module CmdTools
-  module Bin
-    module EmacsLauncher
+module ::CmdTools::Command::EmacsLauncher
       require 'ruby_patch'
       extend ::RubyPatch::AutoLoad
 
@@ -41,6 +39,4 @@ module CmdTools
       def self.number_of_frames
         `emacsclient -e "(length (visible-frame-list))"`.to_i
       end
-    end
-  end
 end

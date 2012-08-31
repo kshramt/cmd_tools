@@ -1,8 +1,4 @@
-module CmdTools
-  module Bin
-
-    # bak is an abbreviation of backup.
-    module Bak
+module ::CmdTools::Command::Backup
       require 'fileutils'
       require 'find'
       require 'ruby_patch'
@@ -61,6 +57,4 @@ module CmdTools
           end
         }
       end
-    end
-  end
 end

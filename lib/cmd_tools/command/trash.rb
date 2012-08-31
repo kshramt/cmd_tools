@@ -1,8 +1,4 @@
-module CmdTools
-  module Bin
-
-    # tsh is an abbreviation of trash.
-    module Tsh
+module ::CmdTools::Command::Trash
       require 'fileutils'
       require 'ruby_patch'
       extend ::RubyPatch::AutoLoad
@@ -25,6 +21,4 @@ module CmdTools
           end
         }
       end
-    end
-  end
 end
