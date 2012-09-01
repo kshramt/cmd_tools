@@ -12,21 +12,21 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'ruby_patch', '~> 0.3'
   s.author = 'kshramt'
   s.description = <<-EOS
-Command line tools:
-  tsh: mv files to ~/.myTrash.
-  bak: backup files.
-  emacs_launcher_(g|c)ui: launch emacsclient and daemon (if necessary).
+Command line tools. Please type
+
+$ cmd_tools help
+
+to see details.
   EOS
-  s.executables << 'bak'
-  s.executables << 'tsh'
-  s.executables << 'emacs_launcher_gui'
-  s.executables << 'emacs_launcher_cui'
-  s.executables << 'emacs_launcher_stop'
+  s.executables << 'cmd_tools'
   s.post_install_message = <<-EOS
 
 # CmdTools.
-alias em='emacs_launcher_gui'
-alias e='emacs_launcher_cui'
+alias bak='cmd_tools backup'
+alias tsh='cmd_tools trash'
+alias em='cmd_tools emacs_launch --mode=gui'
+alias e='cmd_tools emacs_launch --mode=cui'
+alias emacs_stop=''cmd_tools emacs_stop'
 
   EOS
   s.required_ruby_version = '~> 1.9'

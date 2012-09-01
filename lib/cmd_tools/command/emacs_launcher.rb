@@ -23,7 +23,7 @@ module ::CmdTools::Command::EmacsLauncher
     when :cui
       exec "emacsclient -t #{files}"
     else
-      raise ArgumentError, "Unknown mode: #{mode}"
+      raise ArgumentError, "Expected :gui or :cui, but got #{mode}."
     end
   end
 
