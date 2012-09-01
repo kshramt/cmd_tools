@@ -1,4 +1,4 @@
-module ::CmdTools::Command::EmacsLauncher
+module ::CmdTools::Command::EmacsLaunch
   require 'ruby_patch'
   extend ::RubyPatch::AutoLoad
 

@@ -27,11 +27,11 @@ Launch emacs in (G|C)UI mode.
   method_option :mode, type: :string, required: true, desc: "MODE should be 'gui' or 'cui'."
   def emacs_launch(*files)
     mode = options['mode'].to_sym
-    ::CmdTools::Command::EmacsLauncher.run(mode, *files)
+    ::CmdTools::Command::EmacsLaunch.run(mode, *files)
   end
 
   desc "emacs_stop", "Stop emacs daemon."
   def emacs_stop
-    ::CmdTools::Command::EmacsLauncher.stop
+    ::CmdTools::Command::EmacsLaunch.stop
   end
 end
