@@ -26,7 +26,7 @@ alias bak='cmd_tools backup'
 alias tsh='cmd_tools trash'
 alias em='cmd_tools emacs_launch --mode=gui'
 alias e='cmd_tools emacs_launch --mode=cui'
-alias emacs_stop=''cmd_tools emacs_stop'
+alias emacs_stop='cmd_tools emacs_stop'
 
   EOS
   s.required_ruby_version = '~> 1.9'
