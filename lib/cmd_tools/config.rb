@@ -17,9 +17,9 @@ module ::CmdTools::Config
               else
                 FileUtils.mkdir_p(CONFIG_DIR)
                 open(CONFIG_FILE, 'w'){|io|
-        io.write(CONFIG_DEFAULT.to_yaml)
-        io.flush
-      }
+                  io.write(CONFIG_DEFAULT.to_yaml)
+                  io.flush
+                }
                 CONFIG_DEFAULT
               end
 
