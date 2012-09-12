@@ -10,12 +10,12 @@ module ::CmdTools::Command::EmacsLaunch
   #   - :emacs: emacs
   #   + :emacs: /Applications/MacPorts/Emacs.app/Contents/MacOS/Emacs
   def self.run(mode, *files)
-    system "#{::CmdTools::Config.emacs} --daemon" unless self.daemon_running?
+    system "#{::CmdTools::Config.emacs} --daemon" unless daemon_running?
 
     files = files.flatten.join(' ')
     case mode
     when :gui
-      if self.number_of_frames <= 1 # emacs daemon has one (invisible) frame.
+      if number_of_frames() <= 1 # emacs daemon has one (invisible) frame.
         exec "emacsclient -c -n #{files}"
       else
         exec "emacsclient -n #{files}"
@@ -26,6 +26,8 @@ module ::CmdTools::Command::EmacsLaunch
       raise ArgumentError, "Expected :gui or :cui, but got #{mode}."
     end
   end
+
+  private
 
   # Stop emacs daemon.
   def self.stop
