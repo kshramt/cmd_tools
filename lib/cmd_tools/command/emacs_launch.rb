@@ -35,7 +35,7 @@ module ::CmdTools::Command::EmacsLaunch
   private
 
   def self.daemon_running?
-    system "emacsclient -e '()' > /dev/null 2>&1"
+    system "emacsclient -e '()' > #{File::NULL} 2>&1"
   end
 
   def self.number_of_frames
