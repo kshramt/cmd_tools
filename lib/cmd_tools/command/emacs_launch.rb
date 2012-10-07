@@ -2,6 +2,8 @@ module ::CmdTools::Command::EmacsLaunch
   require 'ruby_patch'
   extend ::RubyPatch::AutoLoad
 
+  EMACSCLIENT_OPEN = lambda{|files| spawn "emacsclient -n #{files}"}
+
   # Open +files+ by +mode+ (:gui/:cui) mode.
   # Launch emacs daemon if necessary.
   # Create new frame if necessary.
@@ -10,17 +12,18 @@ module ::CmdTools::Command::EmacsLaunch
   #   - :emacs: emacs
   #   + :emacs: /Applications/MacPorts/Emacs.app/Contents/MacOS/Emacs
   def self.run(mode, *files)
-    system "#{::CmdTools::Config.emacs} --daemon" unless daemon_running?
+    Process.waitpid(spawn "#{::CmdTools::Config.emacs} --daemon") unless daemon_running?
 
     files = files.flatten.join(' ')
     case mode
     when :gui
       if number_of_frames() <= 1 # emacs daemon has one (invisible) frame.
-        exec "emacsclient -c -n #{files}"
+        spawn "emacsclient -c -n #{files}"
       else
-        exec "emacsclient -n #{files}"
+        EMACSCLIENT_OPEN[files]
       end
     when :cui
+      Process.waitpid(EMACSCLIENT_OPEN[files])
       exec "emacsclient -t #{files}"
     else
       raise ArgumentError, "Expected :gui or :cui, but got #{mode}."
@@ -29,7 +32,7 @@ module ::CmdTools::Command::EmacsLaunch
 
   # Stop emacs daemon.
   def self.stop
-    exec "emacsclient -e '(kill-emacs)'"
+    exec "emacsclient -e '(kill-emacs)'" if daemon_running?
   end
 
   private
