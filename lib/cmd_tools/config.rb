@@ -7,27 +7,33 @@ module ::CmdTools::Config
   CONFIG_DIR = File.join(ENV['HOME'], '.config/cmd_tools')
   CONFIG_FILE = File.join(CONFIG_DIR, 'config.yaml')
   CONFIG_DEFAULT = {
-    emacs: ENV['ALTERNATE_EDITOR'] || 'emacs',
+    'emacs' => ENV['ALTERNATE_EDITOR'] || 'emacs',
   }
 
   # (Re)load config file.
   def self.load
-    @config = if File.size?(CONFIG_FILE) and File.readable?(CONFIG_FILE)
-                CONFIG_DEFAULT.merge(YAML.load_file(CONFIG_FILE))
+    need_dump = false
+    @config = if File.readable?(CONFIG_FILE)
+                config = CONFIG_DEFAULT.merge(YAML.load_file(CONFIG_FILE))
+                need_dump = config.size > CONFIG_DEFAULT.size
+
+                config
               else
-                FileUtils.mkdir_p(CONFIG_DIR)
-                open(CONFIG_FILE, 'w'){|io|
-                  io.write(CONFIG_DEFAULT.to_yaml)
-                  io.flush
-                }
+                need_dump = true
+
                 CONFIG_DEFAULT
               end
+
+    if need_dump
+      FileUtils.mkdir_p(CONFIG_DIR)
+      open(CONFIG_FILE, 'w').write(@config.to_yaml)
+    end
 
     self
   end
 
   def self.emacs
-    @config[:emacs]
+    @config['emacs']
   end
 
   self.load
