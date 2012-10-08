@@ -1,17 +1,17 @@
 require 'thor'
 
-class ::CmdTools::Runner < Thor
+class ::CmdTools::Application < Thor
   require 'ruby_patch'
   extend ::RubyPatch::AutoLoad
 
   desc "backup FILE1 FILE2 ...", "Backup files and directories."
   def backup(*files)
-    puts ::CmdTools::Command::Backup.run(*files).join("\t")
+    puts ::CmdTools::Commands::Backup.run(*files).join("\t")
   end
 
   desc "trash FILE1 FILE2 ...", "Move files and directories to ~/.myTrash"
   def trash(*files)
-    puts ::CmdTools::Command::Trash.run(*files).join("\t")
+    puts ::CmdTools::Commands::Trash.run(*files).join("\t")
   end
 
   desc "emacs_launch FILE1 FILE2 ...", "Launch emacs in MODE mode."
@@ -27,11 +27,11 @@ Launch emacs in (G|C)UI mode.
   method_option :mode, type: :string, required: true, desc: "MODE should be 'gui' or 'cui'."
   def emacs_launch(*files)
     mode = options['mode'].to_sym
-    ::CmdTools::Command::EmacsLaunch.run(mode, *files)
+    ::CmdTools::Commands::EmacsLaunch.run(mode, *files)
   end
 
   desc "emacs_stop", "Stop emacs daemon."
   def emacs_stop
-    ::CmdTools::Command::EmacsLaunch.stop
+    ::CmdTools::Commands::EmacsLaunch.stop
   end
 end

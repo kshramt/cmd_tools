@@ -1,4 +1,4 @@
-module ::CmdTools::Command::Backup
+module ::CmdTools::Commands::Backup
   require 'fileutils'
   require 'find'
   require 'ruby_patch'

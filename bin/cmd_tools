@@ -1,4 +1,4 @@
 #!/usr/bin/env ruby
 
 require 'cmd_tools'
-::CmdTools::Runner.start
+::CmdTools::Application.start
