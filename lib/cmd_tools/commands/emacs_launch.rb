@@ -42,6 +42,6 @@ module ::CmdTools::Commands::EmacsLaunch
   end
 
   def self.is_gui_running?
-    %w[x ns].include?(`emacsclient -e "(window-system)"`.strip)
+    ::CmdTools::Config.emacs_window_systems.include?(`emacsclient -e "(window-system)"`.strip)
   end
 end

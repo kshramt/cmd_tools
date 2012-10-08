@@ -8,14 +8,18 @@ module ::CmdTools::Config
   CONFIG_FILE = File.join(CONFIG_DIR, 'config.yaml')
   CONFIG_DEFAULT = {
     'emacs' => ENV['ALTERNATE_EDITOR'] || 'emacs',
+    'emacs_window_systems' => %w[x ns mac],
   }
+
+  @config = nil
 
   # (Re)load config file.
   def self.load
     need_dump = false
     @config = if File.readable?(CONFIG_FILE)
-                config = CONFIG_DEFAULT.merge(YAML.load_file(CONFIG_FILE))
-                need_dump = config.size > CONFIG_DEFAULT.size
+                config_from_file = YAML.load_file(CONFIG_FILE)
+                config = CONFIG_DEFAULT.merge(config_from_file)
+                need_dump = config_from_file.size != CONFIG_DEFAULT.size
 
                 config
               else
@@ -29,11 +33,17 @@ module ::CmdTools::Config
       open(CONFIG_FILE, 'w').write(@config.to_yaml)
     end
 
-    self
-  end
+    @config.each{|name, val|
+      var = "@#{name}"
+      instance_variable_set(var, val)
+      eval <<-EOS
+        def self.#{name}
+          #{var}
+        end
+      EOS
+    }
 
-  def self.emacs
-    @config['emacs']
+    self
   end
 
   self.load
