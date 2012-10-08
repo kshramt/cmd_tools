@@ -17,10 +17,10 @@ module ::CmdTools::Command::EmacsLaunch
     files = files.flatten.join(' ')
     case mode
     when :gui
-      if number_of_frames() <= 1 # emacs daemon has one (invisible) frame.
-        spawn "emacsclient -c -n #{files}"
-      else
+      if is_gui_running?
         EMACSCLIENT_OPEN[files]
+      else
+        spawn "emacsclient -c -n #{files}"
       end
     when :cui
       Process.waitpid(EMACSCLIENT_OPEN[files])
@@ -41,7 +41,7 @@ module ::CmdTools::Command::EmacsLaunch
     system "emacsclient -e '()' > #{File::NULL} 2>&1"
   end
 
-  def self.number_of_frames
-    `emacsclient -e "(length (visible-frame-list))"`.to_i
+  def self.is_gui_running?
+    %w[x ns].include?(`emacsclient -e "(window-system)"`.strip)
   end
 end
