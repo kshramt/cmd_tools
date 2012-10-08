@@ -23,7 +23,7 @@ module ::CmdTools::Command::EmacsLaunch
         spawn "emacsclient -c -n #{files}"
       end
     when :cui
-      Process.waitpid(EMACSCLIENT_OPEN[files])
+      Process.waitpid(EMACSCLIENT_OPEN[files]) # To retain a file even if a terminal, which the file was opened, have closed.
       exec "emacsclient -t #{files}"
     else
       raise ArgumentError, "Expected :gui or :cui, but got #{mode}."
