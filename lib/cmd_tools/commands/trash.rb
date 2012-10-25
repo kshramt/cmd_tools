@@ -17,7 +17,7 @@ module ::CmdTools::Commands::Trash
       begin
         FileUtils.mv(f, prefix + File.basename(f))
       rescue
-        warn "WARN: Failed to discard #{f}."
+        warn "WARN: Failed to discard #{f}"
       end
     }
   end

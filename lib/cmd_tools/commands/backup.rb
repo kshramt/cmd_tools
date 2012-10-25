@@ -22,7 +22,7 @@ module ::CmdTools::Commands::Backup
       begin
         FileUtils.cp_r(f, dest)
       rescue
-        warn "WARN: Failed to back up #{f}."
+        warn "WARN: Failed to back up #{f}"
       end
 
       delete_nested_bak_dir(dest, nested_bak_dir_reg) if(File.directory?(dest))
