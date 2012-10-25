@@ -9,7 +9,8 @@ Gem::Specification.new do |s|
   s.summary = "Command line tools."
   s.version = CmdTools::VERSION
 
-  s.add_development_dependency 'ruby_patch', '~> 0.3'
+  s.add_runtime_dependency 'ruby_patch', '~> 1.1'
+  s.add_runtime_dependency 'thor', '~> 0.16'
   s.author = 'kshramt'
   s.description = <<-EOS
 Command line tools. Please type
