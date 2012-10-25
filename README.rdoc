@@ -5,3 +5,6 @@ Simple small command line utilities.
 Please type
   cmd_tools help
 on a command line to see usages.
+== installation
+Please type
+  gem1.9 install cmd_tools
