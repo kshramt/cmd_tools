@@ -29,12 +29,12 @@ alias emacs_stop='cmd_tools emacs_stop'
 case $(uname) in
     # emacs_launch do not work satisfactory on Mac.
     "Darwin")
-	alias em='open -a /Applications/MacPorts/Emacs.app'
-	alias e='/Applications/MacPorts/Emacs.app/Contents/MacOS/Emacs --no-window-system'
+	alias e='open -a /Applications/MacPorts/Emacs.app'
+	alias em='/Applications/MacPorts/Emacs.app/Contents/MacOS/Emacs --no-window-system'
 	;;
     *)
-	alias em='cmd_tools emacs_launch --mode=gui'
-	alias e='cmd_tools emacs_launch --mode=cui'
+	alias e='cmd_tools emacs_launch --mode=gui'
+	alias em='cmd_tools emacs_launch --mode=cui'
 	;;
 esac
 
