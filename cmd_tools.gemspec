@@ -2,6 +2,7 @@ require 'ruby_patch'
 
 gem_name = File.basename(__DIR__)
 require "./lib/#{gem_name}/version"
+require "./lib/#{gem_name}/recommended_shell_settings"
 
 Gem::Specification.new do |s|
   s.files = `git ls-files`.split
@@ -20,31 +21,6 @@ $ cmd_tools help
 to see details.
   EOS
   s.executables << 'cmd_tools'
-  s.post_install_message = <<-EOS
-
-# CmdTools
-alias bak='cmd_tools backup'
-alias tsh='cmd_tools trash'
-alias emacs_stop='cmd_tools emacs_stop'
-case $(uname) in
-    # emacs_launch do not work satisfactory on Mac.
-    "Darwin")
-	function e(){
-	    files=$@
-	    for file in ${files}
-	    do
-		[ -e ${file} ] || touch ${file}
-	    done
-	    open -a /Applications/MacPorts/Emacs.app ${files}
-	}
-	alias em='/Applications/MacPorts/Emacs.app/Contents/MacOS/Emacs --no-window-system --no-init-file'
-	;;
-    *)
-	alias e='cmd_tools emacs_launch --mode=gui'
-	alias em='cmd_tools emacs_launch --mode=cui'
-	;;
-esac
-
-  EOS
+  s.post_install_message = "\n#{::CmdTools::RECOMMENDED_SHELL_SETTINGS}\n"
   s.required_ruby_version = '~> 1.9'
 end
