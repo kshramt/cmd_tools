@@ -33,7 +33,7 @@ case $(uname) in
 	    files=$@
 	    for file in ${files}
 	    do
-		[ -f ${file} ] || touch ${file}
+		[ -e ${file} ] || touch ${file}
 	    done
 	    open -a /Applications/MacPorts/Emacs.app ${files}
 	}
