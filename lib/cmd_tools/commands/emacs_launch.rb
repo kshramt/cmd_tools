@@ -2,8 +2,6 @@ module ::CmdTools::Commands::EmacsLaunch
   require 'ruby_patch'
   extend ::RubyPatch::AutoLoad
 
-  EMACSCLIENT_OPEN = lambda{|files| spawn "emacsclient -n #{files}"}
-
   # Open +files+ by +mode+ (:gui/:cui) mode.
   # Launch emacs daemon if necessary.
   # Create new frame if necessary.
@@ -14,17 +12,17 @@ module ::CmdTools::Commands::EmacsLaunch
   def self.run(mode, *files)
     Process.waitpid(spawn "#{::CmdTools::Config.emacs} --daemon") unless daemon_running?
 
-    files = files.flatten.join(' ')
+    files_str = files.flatten.join(' ')
     case mode
     when :gui
       if is_gui_running?
-        EMACSCLIENT_OPEN[files]
+        emacsclient_open(files_str)
       else
-        spawn "emacsclient -c -n #{files}"
+        spawn "emacsclient -c -n #{files_str}"
       end
     when :cui
-      Process.waitpid(EMACSCLIENT_OPEN[files]) # To retain a file even if a terminal, which the file was opened, have closed.
-      exec "emacsclient -t #{files}"
+      Process.waitpid(emacsclient_open(files_str)) # To retain a file even if a terminal, which the file was opened, have closed.
+      exec "emacsclient -t #{files_str}"
     else
       raise ArgumentError, "Expected :gui or :cui, but got #{mode}."
     end
@@ -43,5 +41,9 @@ module ::CmdTools::Commands::EmacsLaunch
 
   def self.is_gui_running?
     ::CmdTools::Config.emacs_window_systems.include?(`emacsclient -e "(window-system)"`.strip)
+  end
+
+  def self.emacsclient_open(files_str)
+    spawn "emacsclient -n #{files_str}"
   end
 end
