@@ -8,7 +8,7 @@ case $(uname) in
     # emacs_launch do not work satisfactory on Mac.
     "Darwin")
         function e(){
-            files="$@"
+            local files="$@"
             for file in ${files}
             do
                 [ -e ${file} ] || touch ${file}
