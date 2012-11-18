@@ -15,7 +15,7 @@ case $(uname) in
             done
             open -a /Applications/MacPorts/Emacs.app ${files}
         }
-        alias em='/Applications/MacPorts/Emacs.app/Contents/MacOS/Emacs --no-window-system --no-init-file'
+        alias em='/Applications/MacPorts/Emacs.app/Contents/MacOS/Emacs --no-window-system'
         ;;
     *)
         alias e='cmd_tools emacs_launch --mode=gui'
