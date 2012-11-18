@@ -1,0 +1,11 @@
+#!/bin/sh
+
+case $(uname) in
+    # emacs_launch do not work satisfactory on Mac.
+    "Darwin")
+        /Applications/MacPorts/Emacs.app/Contents/MacOS/Emacs --no-window-system "$@"
+        ;;
+    *)
+        cmd_tools emacs_launch --mode=cui "$@"
+        ;;
+esac

@@ -1,0 +1,16 @@
+#!/bin/sh
+
+files="$@"
+case $(uname) in
+    # emacs_launch do not work satisfactory on Mac.
+    "Darwin")
+        for file in ${files}
+        do
+            [ -e ${file} ] || touch ${file}
+        done
+        open -a /Applications/MacPorts/Emacs.app ${files}
+        ;;
+    *)
+        cmd_tools emacs_launch --mode=gui ${files}
+        ;;
+esac
