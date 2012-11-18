@@ -4,6 +4,14 @@ class ::CmdTools::Application < Thor
   require 'ruby_patch'
   extend ::RubyPatch::AutoLoad
 
+  desc "min_max < FILE", "Return the minmum and maximum value of each column."
+  method_option :min_max_separator, default: "\t", aliases: "-m"
+  method_option :field_separator, default: "\t", aliases: "-f"
+  def min_max()
+    puts ::CmdTools::Commands::MinMax.run($stdin.read, options[:min_max_separator])\
+      .join(options[:field_separator])
+  end
+
   desc "backup FILE1 FILE2 ...", "Backup files and directories."
   def backup(*files)
     puts ::CmdTools::Commands::Backup.run(*files).join("\t")
