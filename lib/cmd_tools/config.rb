@@ -16,7 +16,7 @@ module ::CmdTools::Config
   # (Re)load config file.
   def self.load
     need_dump = false
-    @config = if File.readable?(CONFIG_FILE)
+    @config = if File.readable?(CONFIG_FILE) && File.size(CONFeIG_FILE) > 0
                 config_from_file = YAML.load_file(CONFIG_FILE)
                 config = CONFIG_DEFAULT.merge(config_from_file)
                 need_dump = config_from_file.size != CONFIG_DEFAULT.size
@@ -30,7 +30,10 @@ module ::CmdTools::Config
 
     if need_dump
       FileUtils.mkdir_p(CONFIG_DIR)
-      open(CONFIG_FILE, 'w').write(@config.to_yaml)
+      open(CONFIG_FILE, 'w'){|io|
+        io.write(@config.to_yaml)
+        io.flush
+      }
     end
 
     @config.each{|name, val|
