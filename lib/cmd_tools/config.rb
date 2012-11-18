@@ -16,7 +16,7 @@ module ::CmdTools::Config
   # (Re)load config file.
   def self.load
     need_dump = false
-    @config = if File.readable?(CONFIG_FILE) && File.size(CONFEIG_FILE) > 0
+    @config = if File.readable?(CONFIG_FILE) && File.size(CONFIG_FILE) > 0
                 config_from_file = YAML.load_file(CONFIG_FILE)
                 config = CONFIG_DEFAULT.merge(config_from_file)
                 need_dump = config_from_file.size != CONFIG_DEFAULT.size
