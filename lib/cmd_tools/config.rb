@@ -6,8 +6,13 @@ module ::CmdTools::Config
 
   CONFIG_DIR = File.join(ENV['HOME'], '.config/cmd_tools')
   CONFIG_FILE = File.join(CONFIG_DIR, 'config.yaml')
+  MACPORTS_EMACS = '/Applications/MacPorts/Emacs.app/Contents/MacOS/Emacs'
   CONFIG_DEFAULT = {
-    'emacs' => ENV['ALTERNATE_EDITOR'] || 'emacs',
+    'emacs' => if `uname`.chomp == "Darwin" && File.executable?(MACPORTS_EMACS)
+                 MACPORTS_EMACS
+               else
+                 ENV['ALTERNATE_EDITOR'] || 'emacs'
+               end,
     'emacs_window_systems' => %w[x ns mac],
   }
 
