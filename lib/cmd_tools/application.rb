@@ -4,22 +4,27 @@ class ::CmdTools::Application < Thor
   require 'ruby_patch'
   extend ::RubyPatch::AutoLoad
 
+  desc "version", "Show CmdTools version"
+  def version
+    puts ::CmdTools::VERSION
+  end
+
   desc "min_max < FILE", "Return the minmum and maximum value of each column."
   method_option :min_max_separator, default: "\t", aliases: "-m"
   method_option :field_separator, default: "\t", aliases: "-f"
   def min_max()
-    puts ::CmdTools::Commands::MinMax.run($stdin.read, options[:min_max_separator])\
+    puts ::CmdTools::Command::MinMax.run($stdin.read, options[:min_max_separator])\
       .join(options[:field_separator])
   end
 
   desc "backup FILE1 FILE2 ...", "Backup files and directories."
   def backup(*files)
-    puts ::CmdTools::Commands::Backup.run(*files).join("\t")
+    puts ::CmdTools::Command::Backup.run(*files).join("\t")
   end
 
   desc "trash FILE1 FILE2 ...", "Move files and directories to ~/.myTrash"
   def trash(*files)
-    puts ::CmdTools::Commands::Trash.run(*files).join("\t")
+    puts ::CmdTools::Command::Trash.run(*files).join("\t")
   end
 
   desc "emacs_launch FILE1 FILE2 ...", "Launch emacs in MODE mode."
@@ -35,11 +40,11 @@ Launch emacs in (G|C)UI mode.
   method_option :mode, type: :string, required: true, desc: "MODE should be 'gui' or 'cui'."
   def emacs_launch(*files)
     mode = options['mode'].to_sym
-    ::CmdTools::Commands::EmacsLaunch.run(mode, *files)
+    ::CmdTools::Command::EmacsLaunch.run(mode, *files)
   end
 
   desc "emacs_stop", "Stop emacs daemon."
   def emacs_stop
-    ::CmdTools::Commands::EmacsLaunch.stop
+    ::CmdTools::Command::EmacsLaunch.stop
   end
 end

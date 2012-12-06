@@ -1,4 +1,4 @@
-module ::CmdTools::Commands::Trash
+module ::CmdTools::Command::Trash
   require 'fileutils'
   require 'ruby_patch'
   extend ::RubyPatch::AutoLoad

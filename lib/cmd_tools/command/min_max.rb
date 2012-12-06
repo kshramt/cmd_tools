@@ -1,4 +1,4 @@
-module ::CmdTools::Commands::MinMax
+module ::CmdTools::Command::MinMax
   require 'ruby_patch'
   extend ::RubyPatch::AutoLoad
 
