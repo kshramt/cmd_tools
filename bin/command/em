@@ -1,9 +1,14 @@
 #!/bin/sh
 
+files="$@"
 case $(uname) in
     # emacs_launch do not work satisfactory on Mac.
     "Darwin")
-        /Applications/MacPorts/Emacs.app/Contents/MacOS/Emacs --no-window-system "$@"
+        for file in ${files}
+        do
+            [ -e ${file} ] || touch ${file}
+            /Applications/MacPorts/Emacs.app/Contents/MacOS/Emacs --no-window-system --no-init --no-splash ${file}
+        done
         ;;
     *)
         cmd_tools emacs_launch --mode=cui "$@"
