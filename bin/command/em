@@ -6,9 +6,9 @@ case $(uname) in
     "Darwin")
         for file in ${files}
         do
-            [ -e ${file} ] || touch ${file}
-            /Applications/MacPorts/Emacs.app/Contents/MacOS/Emacs --no-window-system --no-init --no-splash ${file}
+            [ -e ${file} ] || [ "" = ${file} ] || [ "-" = ${file:0:1} ] || [ "+" = ${file:0:1} ] || touch ${file}
         done
+        /Applications/MacPorts/Emacs.app/Contents/MacOS/Emacs --no-window-system --no-init --no-splash ${files}
         ;;
     *)
         cmd_tools emacs_launch --mode=cui "$@"

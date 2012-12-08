@@ -6,7 +6,7 @@ case $(uname) in
     "Darwin")
         for file in ${files}
         do
-            [ -e ${file} ] || touch ${file}
+            [ -e ${file} ] || [ "" = ${file} ] || [ "-" = ${file:0:1} ] || [ "+" = ${file:0:1} ] || touch ${file}
         done
         open -a /Applications/MacPorts/Emacs.app ${files}
         ;;
