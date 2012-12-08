@@ -9,7 +9,7 @@ class ::CmdTools::Application < Thor
     puts ::CmdTools::VERSION
   end
 
-  desc "min_max < FILE", "Return the minmum and maximum value of each column."
+  desc "min_max < FILE [-m MIN_MAX_SEPARATOR -f FIELD_SEPARATOR]", "Return the minmum and maximum value of each column."
   method_option :min_max_separator, default: "\t", aliases: "-m"
   method_option :field_separator, default: "\t", aliases: "-f"
   def min_max()
