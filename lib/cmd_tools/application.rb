@@ -10,8 +10,8 @@ class ::CmdTools::Application < Thor
   end
 
   desc "min_max < FILE [-m MIN_MAX_SEPARATOR -f FIELD_SEPARATOR]", "Return the minmum and maximum value of each column."
-  method_option :min_max_separator, default: "\t", aliases: "-m"
-  method_option :field_separator, default: "\t", aliases: "-f"
+  method_option :min_max_separator, default: " ", aliases: "-m"
+  method_option :field_separator, default: " ", aliases: "-f"
   def min_max()
     puts ::CmdTools::Command::MinMax.run($stdin.read, options[:min_max_separator])\
       .join(options[:field_separator])
@@ -19,12 +19,12 @@ class ::CmdTools::Application < Thor
 
   desc "backup FILE1 FILE2 ...", "Backup files and directories."
   def backup(*files)
-    puts ::CmdTools::Command::Backup.run(*files).join("\t")
+    puts ::CmdTools::Command::Backup.run(*files).join(" ")
   end
 
   desc "trash FILE1 FILE2 ...", "Move files and directories to ~/.myTrash"
   def trash(*files)
-    puts ::CmdTools::Command::Trash.run(*files).join("\t")
+    puts ::CmdTools::Command::Trash.run(*files).join(" ")
   end
 
   desc "emacs_launch FILE1 FILE2 ...", "Launch emacs in MODE mode."
