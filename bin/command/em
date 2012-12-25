@@ -1,14 +1,13 @@
-#!/bin/sh
+#!/bin/sh -ue
 
-files="$@"
 case $(uname) in
     # emacs_launch do not work satisfactory on Mac.
     "Darwin")
-        for file in ${files}
+        for file in "$@"
         do
-            [ -e ${file} ] || [ "" = ${file} ] || [ "-" = ${file:0:1} ] || [ "+" = ${file:0:1} ] || touch ${file}
+            [ -e "${file}" ] || [ "" = "${file}" ] || [ "-" = "${file:0:1}" ] || [ "+" = "${file:0:1}" ] || touch "${file}"
         done
-        /Applications/MacPorts/Emacs.app/Contents/MacOS/Emacs --no-window-system --no-init --no-splash ${files}
+        /Applications/MacPorts/Emacs.app/Contents/MacOS/Emacs --no-window-system --no-init --no-splash "$@"
         ;;
     *)
         cmd_tools emacs_launch --mode=cui "$@"

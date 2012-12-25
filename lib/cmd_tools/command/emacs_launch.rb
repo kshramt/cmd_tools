@@ -1,4 +1,5 @@
 module ::CmdTools::Command::EmacsLaunch
+  require 'shellwords'
   require 'ruby_patch'
   extend ::RubyPatch::AutoLoad
 
@@ -13,7 +14,7 @@ module ::CmdTools::Command::EmacsLaunch
   def self.run(mode, *files)
     Process.waitpid(spawn "#{::CmdTools::Config.emacs} --daemon") unless daemon_running?
 
-    files_str = files.flatten.join(' ')
+    files_str = files.flatten.shelljoin
     case mode
     when :gui
       if is_gui_running?
