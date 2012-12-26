@@ -12,7 +12,7 @@ module ::CmdTools::Command::Trash
     time = Time.now.ymdhms
     prefix = File.join(TRASH_DIR, time) + '.'
     (files.flatten - ['.', '..'])\
-      .select{|f| File.exist?(f)}\
+      .select{|f| File.exist?(f) || File.symlink?(f)}\
       .each{|f|
       begin
         FileUtils.mv(f, prefix + File.basename(f))

@@ -16,7 +16,7 @@ module ::CmdTools::Command::Backup
     nested_bak_dir_reg = /\A#{bak_dir}\/.*#{BAK_DIR_HEAD}\d{12}\z/
     FileUtils.mkdir_p(bak_dir)
     (files.flatten.map{|f| f.chomp('/')} - ['.', '..', bak_dir])\
-      .select{|f| File.exist?(f)}\
+      .select{|f| File.exist?(f) || File.symlink?(f)}\
       .each{|f|
       dest = get_dest(bak_dir, f, time_stamp)
       begin
