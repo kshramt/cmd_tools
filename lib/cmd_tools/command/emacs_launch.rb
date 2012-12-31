@@ -30,6 +30,8 @@ module ::CmdTools::Command::EmacsLaunch
     end
   end
 
+  class << self
+    private
   # Stop emacs daemon.
   def self.stop
     exec "emacsclient -e '(kill-emacs)'" if daemon_running?
@@ -47,5 +49,6 @@ module ::CmdTools::Command::EmacsLaunch
 
   def self.emacsclient_open(files_str)
     spawn "emacsclient -n #{files_str}"
+  end
   end
 end
