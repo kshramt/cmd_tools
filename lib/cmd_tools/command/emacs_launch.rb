@@ -17,7 +17,7 @@ module ::CmdTools::Command::EmacsLaunch
     files_str = files.flatten.shelljoin
     case mode
     when :gui
-      if is_gui_running?
+      if gui_running?
         emacsclient_open(files_str)
       else
         spawn "emacsclient -c -n #{files_str}"
@@ -41,7 +41,7 @@ module ::CmdTools::Command::EmacsLaunch
     system "emacsclient -e '()' > #{File::NULL} 2>&1"
   end
 
-  def self.is_gui_running?
+  def self.gui_running?
     ::CmdTools::Config.emacs_window_systems.include?(`emacsclient -e "(window-system)"`.strip)
   end
 
