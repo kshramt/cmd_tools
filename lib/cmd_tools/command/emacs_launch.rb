@@ -38,15 +38,15 @@ module ::CmdTools::Command::EmacsLaunch
   class << self
     private
 
-    def self.daemon_running?
+    def daemon_running?
       system "emacsclient -e '()' > #{File::NULL} 2>&1"
     end
 
-    def self.gui_running?
+    def gui_running?
       ::CmdTools::Config.emacs_window_systems.include?(`emacsclient -e "(window-system)"`.strip)
     end
 
-    def self.emacsclient_open(files_str)
+    def emacsclient_open(files_str)
       spawn "emacsclient -n #{files_str}"
     end
   end
