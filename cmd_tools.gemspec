@@ -22,5 +22,5 @@ to see details.
   EOS
   s.executables << 'cmd_tools'
   s.post_install_message = "\n#{::CmdTools::RECOMMENDED_SHELL_SETTINGS}\n"
-  s.required_ruby_version = '~> 1.9'
+  s.required_ruby_version = '>= 1.9'
 end
